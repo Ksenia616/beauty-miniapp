@@ -1,5 +1,5 @@
 // src/components/Assistant.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // импорт картинок тональных кремов
 import FF01 from "../assets/FF01.png";
@@ -25,6 +25,19 @@ import A427 from "../assets/A427.png";
 function Assistant() {
   const [step, setStep] = useState("menu");
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // ---------- ПРЕДЗАГРУЗКА ВСЕХ КАРТИНОК ----------
+  useEffect(() => {
+    const images = [
+      FF01, FF02, FF03, FF04,
+      J01, J02, J03,
+      A002, A005, A317, A319, A320, A321, A328, A427
+    ];
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   const backToMenu = () => {
     setStep("menu");

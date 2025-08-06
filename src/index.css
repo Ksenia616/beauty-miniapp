@@ -39,3 +39,19 @@
 .glowing-btn {
   animation: glow 2s infinite ease-in-out;
 }
+@keyframes silverPulse {
+  0% {
+    filter: drop-shadow(0 0 5px #aaa) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #e0e0e0) brightness(1.4);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #aaa) brightness(1);
+  }
+}
+
+.animate-pulse-silver {
+  animation: silverPulse 3s infinite ease-in-out;
+}
+
