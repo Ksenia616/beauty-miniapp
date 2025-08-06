@@ -1,57 +1,91 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@keyframes shine {
-  0% { filter: brightness(1) drop-shadow(0 0 2px white); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 10px #ff66cc); }
-  100% { filter: brightness(1) drop-shadow(0 0 2px white); }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
-.shiny-logo {
-  animation: shine 3s infinite ease-in-out;
+.intro-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.intro-title {
+  font-weight: 300;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.intro-logo {
+  width: 220px;
+  margin-bottom: 30px;
+  animation: shine 2s infinite alternate;
+}
+
+@keyframes shine {
+  from {
+    filter: drop-shadow(0 0 5px silver);
+  }
+  to {
+    filter: drop-shadow(0 0 20px white);
+  }
+}
+
+.start-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.start-btn:hover {
+  background: #ccc;
+  color: black;
+}
+
+.content {
+  padding: 20px;
+  min-height: 70vh;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.menu-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  flex: 1; /* одинаковый размер */
+  max-width: 150px;
+  transition: all 0.3s ease;
+}
+
+.menu-btn.active {
+  box-shadow: 0 0 15px 3px rgba(255, 105, 180, 0.7);
+  animation: glow 1.5s infinite alternate;
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 5px #ff66cc; }
-  50% { box-shadow: 0 0 20px #ff99dd; }
-  100% { box-shadow: 0 0 5px #ff66cc; }
-}
-
-.glowing-btn {
-  animation: glow 2s infinite ease-in-out;
-}
-@keyframes shine {
-  0% { filter: brightness(1) drop-shadow(0 0 2px white); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 10px #ff66cc); }
-  100% { filter: brightness(1) drop-shadow(0 0 2px white); }
-}
-
-.shiny-logo {
-  animation: shine 3s infinite ease-in-out;
-}
-
-@keyframes glow {
-  0% { box-shadow: 0 0 5px #ff66cc; }
-  50% { box-shadow: 0 0 20px #ff99dd; }
-  100% { box-shadow: 0 0 5px #ff66cc; }
-}
-
-.glowing-btn {
-  animation: glow 2s infinite ease-in-out;
-}
-@keyframes silverPulse {
-  0% {
-    filter: drop-shadow(0 0 5px #aaa) brightness(1);
+  from {
+    box-shadow: 0 0 10px rgba(255, 182, 193, 0.6);
   }
-  50% {
-    filter: drop-shadow(0 0 20px #e0e0e0) brightness(1.4);
-  }
-  100% {
-    filter: drop-shadow(0 0 5px #aaa) brightness(1);
+  to {
+    box-shadow: 0 0 20px rgba(255, 105, 180, 1);
   }
 }
-
-.animate-pulse-silver {
-  animation: silverPulse 3s infinite ease-in-out;
-}
-
