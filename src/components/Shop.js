@@ -1,4 +1,3 @@
-// src/components/Shop.js
 import React, { useState } from "react";
 
 const BackButton = ({ onClick }) => (
@@ -14,7 +13,7 @@ export default function Shop() {
   const [category, setCategory] = useState(null);
 
   const renderCategory = (title, products) => (
-    <div className="flex flex-col items-center text-center text-white bg-black flex-1 p-6">
+    <div className="flex flex-col items-center justify-center text-center text-white bg-black flex-1 p-6 overflow-hidden">
       <h2 className="text-xl mb-6">{title}</h2>
       {products.map((p, i) => (
         <a
@@ -33,8 +32,10 @@ export default function Shop() {
 
   if (!category) {
     return (
-      <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6">
-        <h2 className="text-xl mb-8">Ассортимент продукции Marvel Cosmetics</h2>
+      <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6 overflow-hidden">
+        <h2 className="text-xl mb-8 text-center text-white animate-glow">
+          Ассортимент продукции Marvel Cosmetics
+        </h2>
         <div className="flex flex-col space-y-4">
           <button onClick={() => setCategory("lips")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Губы</button>
           <button onClick={() => setCategory("brows")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Брови</button>

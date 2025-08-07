@@ -22,3 +22,15 @@
   color: black;
   box-shadow: 0 0 12px rgba(255, 182, 193, 0.8);
 }
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+  }
+  50% {
+    text-shadow: 0 0 15px #e0e0e0, 0 0 20px #ffffff;
+  }
+}
+
+.animate-glow {
+  animation: glow 2s infinite;
+}
