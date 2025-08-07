@@ -34,7 +34,7 @@ export default function Shop() {
     return (
       <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6 overflow-hidden">
         <h2 className="text-xl mb-8 text-center text-white animate-glow">
-          Ассортимент продукции Marvel Cosmetics
+          Ассортимент продукции
         </h2>
         <div className="flex flex-col space-y-4">
           <button onClick={() => setCategory("lips")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Губы</button>
