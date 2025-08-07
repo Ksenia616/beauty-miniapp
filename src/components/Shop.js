@@ -34,7 +34,7 @@ export default function Shop() {
   if (!category) {
     return (
       <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6">
-        <h2 className="text-xl mb-8">Выберите категорию 🛍️</h2>
+        <h2 className="text-xl mb-8">Ассортимент продукции Marvel Cosmetics</h2>
         <div className="flex flex-col space-y-4">
           <button onClick={() => setCategory("lips")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Губы</button>
           <button onClick={() => setCategory("brows")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Брови</button>

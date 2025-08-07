@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Home from "./components/Home";
 import Assistant from "./components/Assistant";
 import Shop from "./components/Shop";
-import Test from "./components/Test";
 import Logo from "./assets/logo-small.png"; // Логотип
 
 function App() {
@@ -24,12 +23,11 @@ function App() {
       <div className="flex-1 overflow-hidden flex items-center justify-center">
         {activeTab === "assistant" && <Assistant />}
         {activeTab === "shop" && <Shop />}
-        {activeTab === "test" && <Test />}
       </div>
 
       {/* Логотип над меню */}
       <div className="w-full flex justify-center mb-2 animate-pulse-silver">
-        <img src={Logo} alt="Marvel Cosmetics" className="w-16 drop-shadow-lg" />
+        <img src={Logo} alt="Marvel Cosmetics" className="w-32 drop-shadow-lg" />
       </div>
 
       {/* Меню */}
@@ -53,16 +51,6 @@ function App() {
           onClick={() => setActiveTab("shop")}
         >
           Магазин
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg ${
-            activeTab === "test"
-              ? "bg-pink-200 text-black shadow-lg"
-              : "bg-white text-black hover:bg-gray-300"
-          }`}
-          onClick={() => setActiveTab("test")}
-        >
-          Тест
         </button>
       </div>
     </div>
