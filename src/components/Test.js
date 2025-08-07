@@ -6,8 +6,31 @@ export default function Test() {
   const [score, setScore] = useState(0);
 
   const questions = [
-    { question: "В каком году был основан бренд Marvel Cosmetics?", answers: ["2013", "2024", "2010", "2021"], correct: "2013" },
-    { question: "Какой продукт бренда был выпущен первым?", answers: ["гель для бровей", "карандаш для губ", "помада", "тушь"], correct: "карандаш для губ" },
+    {
+      question: "В каком году был основан бренд Marvel Cosmetics?",
+      answers: ["2013", "2024", "2010", "2021"],
+      correct: "2013",
+    },
+    {
+      question: "Какой продукт бренда был выпущен первым?",
+      answers: ["гель для бровей", "карандаш для губ", "помада", "тушь"],
+      correct: "карандаш для губ",
+    },
+    {
+      question: "Сколько оттенков у классической матовой помады Marvel Cosmetics?",
+      answers: ["9", "5", "10", "8"],
+      correct: "8",
+    },
+    {
+      question: "Какой компонент в составе тонального крема бренда регулирует выработку себума и поддерживает чистоту пор?",
+      answers: ["Ниацинамид", "Салициловая кислота", "Цинк", "Каолин"],
+      correct: "Ниацинамид",
+    },
+    {
+      question: "Как переводится название бренда с английского языка?",
+      answers: ["Блестки", "Чудо", "Волшебство", "Великолепие"],
+      correct: "Чудо",
+    },
   ];
 
   const handleAnswer = (answer) => {
@@ -19,9 +42,10 @@ export default function Test() {
 
   if (!subscribed) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-4">
+      <div className="flex flex-col items-center justify-center flex-1 bg-black text-white px-4">
         <h1 className="text-xl mb-4 text-center">
-          Подпишитесь на наш официальный Telegram-канал, чтобы пройти тест ❤️
+          Пройди тест без ошибок и получи подарок от Marvel Cosmetics!❤️ <br />
+          Чтобы пройти тест, подпишитесь на наш Telegram-канал.
         </h1>
         <a
           href="https://t.me/marvelcosmetics_official"
@@ -43,8 +67,8 @@ export default function Test() {
 
   if (step < questions.length) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-4">
-        <h2 className="text-lg mb-6">{questions[step].question}</h2>
+      <div className="flex flex-col items-center justify-center flex-1 bg-black text-white px-4">
+        <h2 className="text-lg mb-6 text-center">{questions[step].question}</h2>
         {questions[step].answers.map((a, i) => (
           <button
             key={i}
@@ -59,11 +83,18 @@ export default function Test() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-4">
+    <div className="flex flex-col items-center justify-center flex-1 bg-black text-white px-4 text-center">
       {score === questions.length ? (
-        <h2 className="text-green-400 text-xl">Поздравляем! 🎁</h2>
+        <>
+          <h2 className="text-green-400 text-xl mb-4">
+            Поздравляем! Вы успешно прошли тест! 🎁
+          </h2>
+          <p className="text-white text-sm">
+            Покажите это ассистенту на стойке нашего бренда на выставке InterCharm и получите подарок от бренда!
+          </p>
+        </>
       ) : (
-        <h2 className="text-red-400 text-xl">К сожалению, есть ошибки 😔</h2>
+        <h2 className="text-red-400 text-xl">К сожалению, вы прошли тест с ошибками 😔</h2>
       )}
     </div>
   );

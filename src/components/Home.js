@@ -3,14 +3,14 @@ import logo from "../assets/logo.png";
 
 function Home({ onStart }) {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center">
+    <div className="flex flex-col items-center justify-center h-screen text-center bg-black text-white">
       <h1 className="text-xl font-light mb-4">
         Привет! Я твой бьюти-ассистент Marvel Cosmetics
       </h1>
       <img
         src={logo}
         alt="Marvel Logo"
-        className="w-48 mb-6 animate-pulse"
+        className="w-48 mb-6 animate-pulse-silver"
       />
       <button
         onClick={onStart}

@@ -1,3 +1,4 @@
+// src/components/Shop.js
 import React, { useState } from "react";
 
 const BackButton = ({ onClick }) => (
@@ -13,7 +14,7 @@ export default function Shop() {
   const [category, setCategory] = useState(null);
 
   const renderCategory = (title, products) => (
-    <div className="flex flex-col items-center text-center text-white bg-black min-h-screen p-6">
+    <div className="flex flex-col items-center text-center text-white bg-black flex-1 p-6">
       <h2 className="text-xl mb-6">{title}</h2>
       {products.map((p, i) => (
         <a
@@ -32,14 +33,16 @@ export default function Shop() {
 
   if (!category) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-6">
+      <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6">
         <h2 className="text-xl mb-8">Выберите категорию 🛍️</h2>
-        <button onClick={() => setCategory("lips")} className="btn">Губы</button>
-        <button onClick={() => setCategory("brows")} className="btn">Брови</button>
-        <button onClick={() => setCategory("face")} className="btn">Лицо</button>
-        <button onClick={() => setCategory("eyes")} className="btn">Глаза</button>
-        <button onClick={() => setCategory("accessories")} className="btn">Аксессуары</button>
-        <button onClick={() => setCategory("sets")} className="btn">Подарочные наборы</button>
+        <div className="flex flex-col space-y-4">
+          <button onClick={() => setCategory("lips")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Губы</button>
+          <button onClick={() => setCategory("brows")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Брови</button>
+          <button onClick={() => setCategory("face")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Лицо</button>
+          <button onClick={() => setCategory("eyes")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Глаза</button>
+          <button onClick={() => setCategory("accessories")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Аксессуары</button>
+          <button onClick={() => setCategory("sets")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Подарочные наборы</button>
+        </div>
       </div>
     );
   }
