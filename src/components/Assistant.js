@@ -21,9 +21,18 @@ export default function Assistant() {
   const StyledButton = ({ onClick, children }) => (
     <button
       onClick={onClick}
-      className="w-[280px] h-14 bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300 text-center"
+      className="w-[280px] h-14 bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300 text-center transition"
     >
       {children}
+    </button>
+  );
+
+  const BackButtonGray = ({ onClick }) => (
+    <button
+      onClick={onClick}
+      className="w-[280px] h-14 mt-6 bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200 transition"
+    >
+      Назад
     </button>
   );
 
@@ -36,11 +45,11 @@ export default function Assistant() {
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200"
+        className="w-[280px] h-14 bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200 flex items-center justify-center transition"
       >
         Открыть!
       </a>
-      <StyledButton onClick={() => setStep(backStep)}>Назад</StyledButton>
+      <BackButtonGray onClick={() => setStep(backStep)} />
     </div>
   );
 
@@ -72,13 +81,13 @@ export default function Assistant() {
           <StyledButton onClick={() => setStep("A317")}>Тихая Роскошь 👜</StyledButton>
           <StyledButton onClick={() => setStep("A319")}>Свежесть 🦋</StyledButton>
           <StyledButton onClick={() => setStep("A320")}>Сирень 🪻</StyledButton>
-          <StyledButton onClick={() => setStep("menu")}>Назад</StyledButton>
+          <BackButtonGray onClick={() => setStep("menu")} />
         </div>
       </div>
     );
   }
 
-  // Помада – карточки
+  // Карточки помад
   if (step === "A427") return renderProduct("A427 Cotton Candy", "Нежный розово-сиреневый оттенок, создающий игривое настроение.", A427, "https://ozon.ru/product/2389643440", "lipstick");
   if (step === "A328") return renderProduct("A328 Burgundy", "Насыщенный винный цвет для смелого и яркого образа.", A328, "https://ozon.ru/product/2389643440", "lipstick");
   if (step === "A321") return renderProduct("A321 Natural Beige", "Нюдовый оттенок с лёгкой теплотой, идеально подходит на каждый день.", A321, "https://ozon.ru/product/2389643440", "lipstick");
@@ -97,7 +106,7 @@ export default function Assistant() {
         <StyledButton onClick={() => setStep("ff02")}>Среднего тона с холодным или розовым оттенком с румянцем или веснушками</StyledButton>
         <StyledButton onClick={() => setStep("ff03")}>Кожа с теплым золотистым подтоном с легким загаром или натуральной смуглостью</StyledButton>
         <StyledButton onClick={() => setStep("ff04")}>Загорелая или смуглая кожа</StyledButton>
-        <StyledButton onClick={() => setStep("menu")}>Назад</StyledButton>
+        <BackButtonGray onClick={() => setStep("menu")} />
       </div>
     );
   }
@@ -115,7 +124,7 @@ export default function Assistant() {
         <StyledButton onClick={() => setStep("j01")}>Теплый</StyledButton>
         <StyledButton onClick={() => setStep("j02")}>Холодный</StyledButton>
         <StyledButton onClick={() => setStep("j03")}>Загорелый</StyledButton>
-        <StyledButton onClick={() => setStep("menu")}>Назад</StyledButton>
+        <BackButtonGray onClick={() => setStep("menu")} />
       </div>
     );
   }

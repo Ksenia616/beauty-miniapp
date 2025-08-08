@@ -1,28 +1,40 @@
 // src/App.js
 import React, { useState } from "react";
 import Home from "./components/Home";
+import MenuPage from "./components/MenuPage";
 import Assistant from "./components/Assistant";
 import Shop from "./components/Shop";
 import Logo from "./assets/logo-small.png"; // Логотип
 
 function App() {
-  const [started, setStarted] = useState(false); // Управляет показом Home
-  const [activeTab, setActiveTab] = useState("assistant");
+  const [step, setStep] = useState("home"); // 'home', 'menu', 'assistant', 'shop'
 
-  if (!started) {
+  // Старт → меню выбора
+  if (step === "home") {
     return (
       <div className="flex flex-col h-screen bg-black text-white">
-        <Home onStart={() => setStarted(true)} />
+        <Home onStart={() => setStep("menu")} />
       </div>
     );
   }
 
+  // Меню выбора → ассистент/магазин
+  if (step === "menu") {
+    return (
+      <div className="flex flex-col h-screen bg-black text-white">
+        <MenuPage onSelect={(tab) => setStep(tab)} />
+      </div>
+    );
+  }
+
+  // Основной интерфейс (ассистент или магазин)
+  const currentPage = step === "assistant" ? <Assistant /> : <Shop />;
+
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
-      {/* Контент страниц */}
+      {/* Контент */}
       <div className="flex-1 overflow-hidden flex items-center justify-center">
-        {activeTab === "assistant" && <Assistant />}
-        {activeTab === "shop" && <Shop />}
+        {currentPage}
       </div>
 
       {/* Логотип над меню */}
@@ -34,21 +46,21 @@ function App() {
       <div className="flex justify-around bg-black py-3 border-t border-gray-700">
         <button
           className={`px-4 py-2 rounded-lg ${
-            activeTab === "assistant"
+            step === "assistant"
               ? "bg-pink-200 text-black shadow-lg"
               : "bg-white text-black hover:bg-gray-300"
           }`}
-          onClick={() => setActiveTab("assistant")}
+          onClick={() => setStep("assistant")}
         >
           Ассистент
         </button>
         <button
           className={`px-4 py-2 rounded-lg ${
-            activeTab === "shop"
+            step === "shop"
               ? "bg-pink-200 text-black shadow-lg"
               : "bg-white text-black hover:bg-gray-300"
           }`}
-          onClick={() => setActiveTab("shop")}
+          onClick={() => setStep("shop")}
         >
           Магазин
         </button>
@@ -58,4 +70,3 @@ function App() {
 }
 
 export default App;
-

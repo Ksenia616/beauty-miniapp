@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
+// Обновлённая универсальная кнопка "Назад"
 const BackButton = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="mt-6 px-6 py-2 bg-white text-black rounded-lg hover:bg-gray-300 transition"
+    className="w-[280px] h-14 mt-6 bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200 transition"
   >
     Назад
   </button>
@@ -12,21 +13,35 @@ const BackButton = ({ onClick }) => (
 export default function Shop() {
   const [category, setCategory] = useState(null);
 
+  const StyledLink = ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-[280px] h-14 bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200 flex items-center justify-center transition"
+    >
+      {children}
+    </a>
+  );
+
+  const StyledButton = ({ onClick, children }) => (
+    <button
+      onClick={onClick}
+      className="w-[280px] h-14 bg-white text-black px-6 py-2 rounded-lg border border-black hover:bg-gray-200 transition"
+    >
+      {children}
+    </button>
+  );
+
   const renderCategory = (title, products) => (
     <div className="flex flex-col items-center justify-center text-center text-white bg-black flex-1 p-6 overflow-hidden">
       <h2 className="text-xl mb-6">{title}</h2>
-      {products.map((p, i) => (
-        <a
-          key={i}
-          href={p.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-72 py-3 mb-3 bg-white text-black rounded-lg hover:bg-gray-300 transition"
-        >
-          {p.name}
-        </a>
-      ))}
-      <BackButton onClick={() => setCategory(null)} />
+      <div className="flex flex-col items-center space-y-3">
+        {products.map((p, i) => (
+          <StyledLink key={i} href={p.link}>{p.name}</StyledLink>
+        ))}
+        <BackButton onClick={() => setCategory(null)} />
+      </div>
     </div>
   );
 
@@ -36,13 +51,13 @@ export default function Shop() {
         <h2 className="text-xl mb-8 text-center text-white animate-glow">
           Ассортимент продукции
         </h2>
-        <div className="flex flex-col space-y-4">
-          <button onClick={() => setCategory("lips")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Губы</button>
-          <button onClick={() => setCategory("brows")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Брови</button>
-          <button onClick={() => setCategory("face")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Лицо</button>
-          <button onClick={() => setCategory("eyes")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Глаза</button>
-          <button onClick={() => setCategory("accessories")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Аксессуары</button>
-          <button onClick={() => setCategory("sets")} className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Подарочные наборы</button>
+        <div className="flex flex-col items-center space-y-4">
+          <StyledButton onClick={() => setCategory("lips")}>Губы</StyledButton>
+          <StyledButton onClick={() => setCategory("brows")}>Брови</StyledButton>
+          <StyledButton onClick={() => setCategory("face")}>Лицо</StyledButton>
+          <StyledButton onClick={() => setCategory("eyes")}>Глаза</StyledButton>
+          <StyledButton onClick={() => setCategory("accessories")}>Аксессуары</StyledButton>
+          <StyledButton onClick={() => setCategory("sets")}>Подарочные наборы</StyledButton>
         </div>
       </div>
     );
