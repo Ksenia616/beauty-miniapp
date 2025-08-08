@@ -129,9 +129,9 @@ export default function Assistant() {
     );
   }
 
-  if (step === "j01") return renderProduct("J01 Soft Brown", "Светло-коричневый — цвет оттенка Soft Brown предназначен для теплого цветотипа", J01, "https://ozon.ru/product/2389496078", "contour");
-  if (step === "j02") return renderProduct("J02 Cool Brown", "Холодно-коричневый — цвет оттенка Cool Brown предназначен для холодного цветотипа", J02, "https://ozon.ru/product/2389502155", "contour");
-  if (step === "j03") return renderProduct("J03 Warm Brown", "Тепло-коричневый — цвет оттенка Warm Brown предназначен для загорелой кожи", J03, "https://ozon.ru/product/2389497767", "contour");
+  if (step === "j01") return renderProduct("J01 Soft Brown", "Светло-коричневый — цвет оттенка Soft Brown предназначен для теплого цветотипа.", J01, "https://ozon.ru/product/2389496078", "contour");
+  if (step === "j02") return renderProduct("J02 Cool Brown", "Холодно-коричневый — цвет оттенка Cool Brown предназначен для холодного цветотипа.", J02, "https://ozon.ru/product/2389502155", "contour");
+  if (step === "j03") return renderProduct("J03 Warm Brown", "Тепло-коричневый — цвет оттенка Warm Brown предназначен для загорелой кожи.", J03, "https://ozon.ru/product/2389497767", "contour");
 
   return null;
 }
