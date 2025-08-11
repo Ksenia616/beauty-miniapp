@@ -4,6 +4,7 @@ function Navbar({ setPage, currentPage }) {
   const buttons = [
     { id: "assistant", label: "Ассистент" },
     { id: "shop", label: "Магазин" },
+    { id: "contacts", label: "Контакты" }, // новый раздел
     { id: "test", label: "Тест" },
   ];
 
