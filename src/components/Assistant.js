@@ -87,7 +87,7 @@ export default function Assistant() {
     return (
       <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6">
         <h2 className="text-xl mb-8 text-center text-white animate-glow">
-          Выбери из какой категории хочешь подобрать для себя продукт
+          Выбери, из какой категории хочешь подобрать для себя продукт
         </h2>
         <div className="flex flex-col items-center space-y-4">
           <StyledButton onClick={() => setStep("faceMenu")}>Лицо</StyledButton>
