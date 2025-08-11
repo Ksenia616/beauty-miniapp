@@ -135,13 +135,13 @@ export default function Assistant() {
       <div className="flex flex-col items-center justify-center flex-1 bg-black text-white p-6 space-y-4">
         <h2 className="text-lg mb-4 text-center">Какая у тебя кожа?</h2>
         <StyledButton onClick={() => setStep("ff01")}>
-          Светлая фарфорового оттенка, легко краснеет и едва загорает
+          Светлая фарфорового оттенка, легко краснеет
         </StyledButton>
         <StyledButton onClick={() => setStep("ff02")}>
-          Среднего тона с холодным или розовым оттенком с румянцем или веснушками
+          Среднего тона с холодным или розовым оттенком
         </StyledButton>
         <StyledButton onClick={() => setStep("ff03")}>
-          Кожа с теплым золотистым подтоном с легким загаром или натуральной смуглостью
+          Кожа с теплым золотистым подтоном или легким загаром
         </StyledButton>
         <StyledButton onClick={() => setStep("ff04")}>Загорелая или смуглая кожа</StyledButton>
         <BackButton onClick={() => setStep("faceMenu")} />
