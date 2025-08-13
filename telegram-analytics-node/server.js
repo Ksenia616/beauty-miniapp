@@ -9,19 +9,32 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "256kb" }));
 
-// ===== ХРАНЕНИЕ (файл) =====
+// На всякий случай — доверять прокси (Render и пр.)
+app.set("trust proxy", 1);
+
+// ===== ФАЙЛ-ХРАНИЛИЩЕ =====
 const DB_PATH = path.join(__dirname, "stats.json");
 // структура: { days: { "YYYY-MM-DD": { total: number, uniques: string[] } } }
 let store = { days: {} };
 try {
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
-  store = JSON.parse(raw);
-} catch (_) {}
-function save() {
-  fs.writeFileSync(DB_PATH, JSON.stringify(store, null, 2), "utf-8");
+  if (fs.existsSync(DB_PATH)) {
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    store = JSON.parse(raw);
+  }
+} catch (e) {
+  console.error("Не удалось прочитать stats.json:", e.message);
+  store = { days: {} };
 }
+function save() {
+  try {
+    fs.writeFileSync(DB_PATH, JSON.stringify(store, null, 2), "utf-8");
+  } catch (e) {
+    console.error("Не удалось записать stats.json:", e.message);
+  }
+}
+
 const todayKey = () =>
   new Intl.DateTimeFormat("ru-RU", {
     timeZone: "Europe/Moscow",
@@ -34,22 +47,33 @@ const todayKey = () =>
     .reverse()
     .join("-"); // YYYY-MM-DD
 
-// ===== ТРЕКИНГ ВИЗИТА =====
+// ===== ПРИЁМ ВИЗИТА =====
 app.post("/track", (req, res) => {
-  const { userId } = req.body || {};
-  const day = todayKey();
-  if (!store.days[day]) store.days[day] = { total: 0, uniques: [] };
+  try {
+    const { userId } = req.body || {};
+    const day = todayKey();
+    if (!store.days[day]) store.days[day] = { total: 0, uniques: [] };
 
-  store.days[day].total += 1;
-  if (userId) {
-    const u = String(userId);
-    if (!store.days[day].uniques.includes(u)) store.days[day].uniques.push(u);
+    // все открытия
+    store.days[day].total += 1;
+
+    // уникальность по userId (если есть)
+    if (userId) {
+      const u = String(userId);
+      if (!store.days[day].uniques.includes(u)) {
+        store.days[day].uniques.push(u);
+      }
+    }
+
+    save();
+    res.json({ ok: true });
+  } catch (e) {
+    console.error("Ошибка в /track:", e);
+    res.status(500).json({ ok: false });
   }
-  save();
-  res.json({ ok: true });
 });
 
-// ===== КОЛ-ВО ЗА СЕГОДНЯ (JSON) =====
+// ===== КОЛИЧЕСТВО ЗА СЕГОДНЯ (JSON) =====
 app.get("/count", (_req, res) => {
   const day = todayKey();
   const d = store.days[day] || { total: 0, uniques: [] };
@@ -65,11 +89,13 @@ app.get("/stats", (_req, res) => {
   const day = todayKey();
   const d = store.days[day] || { total: 0, uniques: [] };
   const unique = d.uniques.length || d.total;
-  res.type("text/plain").send(
-    `📅 Сегодня (${day})
+  res
+    .type("text/plain; charset=utf-8")
+    .send(
+      `📅 Сегодня (${day})
 👤 Уникальных посетителей: ${unique}
 ↻ Всего открытий: ${d.total}`
-  );
+    );
 });
 
 // ===== ПРОСТАЯ HTML-СТРАНИЦА НА КОРНЕ =====
@@ -85,23 +111,29 @@ app.get("/", (_req, res) => {
       <h2>Сегодня (${day})</h2>
       <p>👤 Уникальных посетителей: <b>${d.uniques.length || d.total}</b></p>
       <p>↻ Всего открытий: <b>${d.total}</b></p>
-      <p><a style="color:#9cf" href="/stats">/stats (текстом)</a> | <a style="color:#9cf" href="/count">/count (JSON)</a></p>
+      <p><a style="color:#9cf" href="/stats">/stats (текст)</a> | <a style="color:#9cf" href="/count">/count (JSON)</a></p>
     </body></html>
   `);
 });
 
-// ===== БОТ: команда /stats =====
+// Служебный живой пинг
+app.get("/ping", (_req, res) => res.send("pong"));
+
+// ===== БОТ: /stats =====
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const ADMIN_ID = process.env.ADMIN_ID ? String(process.env.ADMIN_ID) : null;
 
-// В Node 18+ есть глобальный fetch. На всякий случай — полифилл:
-const ensureFetch = async () => {
+// В Node < 18 может не быть fetch — полифилл
+(async () => {
   if (typeof fetch === "undefined") {
-    const { default: f } = await import("node-fetch");
-    global.fetch = f;
+    try {
+      const { default: f } = await import("node-fetch");
+      global.fetch = f;
+    } catch (e) {
+      console.error("fetch недоступен и полифилл не установился:", e.message);
+    }
   }
-};
-ensureFetch();
+})();
 
 if (!BOT_TOKEN) {
   console.error("❗ В .env не задан TELEGRAM_BOT_TOKEN");
@@ -169,7 +201,7 @@ if (!BOT_TOKEN) {
   poll();
 }
 
-app.listen(PORT, () =>
-  console.log(`Server started on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`);
+});
 
